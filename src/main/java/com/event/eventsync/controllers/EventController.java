@@ -1,6 +1,7 @@
 package com.event.eventsync.controllers;
 
 import com.event.eventsync.entities.Event;
+import com.event.eventsync.entities.EventFeedback;
 import com.event.eventsync.services.EventService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,11 @@ public class EventController {
     @GetMapping
     public List<Event> getEvents() {
         return eventService.getEvents();
+    }
+
+    @PostMapping("/{eventId}/feedback")
+    public void addEventFeedback(@PathVariable(value = "eventId") Integer eventId, @RequestBody EventFeedback eventFeedback) {
+        eventService.addEventFeedback(eventId, eventFeedback);
     }
 
 }
