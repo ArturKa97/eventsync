@@ -29,4 +29,7 @@ public class EventFeedback {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime timeStamp;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Event event;
+
 }
