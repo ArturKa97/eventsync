@@ -3,10 +3,9 @@ package com.event.eventsync.controllers;
 import com.event.eventsync.entities.Event;
 import com.event.eventsync.services.EventService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/events")
@@ -18,6 +17,11 @@ public class EventController {
     @PostMapping
     public void addEvent(@RequestBody Event event) {
         eventService.addEvent(event);
+    }
+
+    @GetMapping
+    public List<Event> getEvents() {
+        return eventService.getEvents();
     }
 
 }

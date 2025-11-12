@@ -5,6 +5,8 @@ import com.event.eventsync.repositories.EventRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class EventService {
@@ -13,6 +15,9 @@ public class EventService {
 
     public void addEvent (Event event) {
         eventRepository.save(event);
+    }
+    public List<Event> getEvents() {
+        return eventRepository.findAll();
     }
 
 }
