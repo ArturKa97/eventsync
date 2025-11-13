@@ -28,7 +28,7 @@ public class EventService {
         eventRepository.save(event);
     }
     public List<Event> getEvents() {
-        return eventRepository.findAll();
+        return eventRepository.findAllEventsWithFeedbackAndSentiments();
     }
 
     public void addEventFeedback(Integer eventId, EventFeedback eventFeedback) {

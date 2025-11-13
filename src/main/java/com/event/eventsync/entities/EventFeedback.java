@@ -39,4 +39,7 @@ public class EventFeedback {
     @ManyToOne(fetch = FetchType.LAZY)
     private Event event;
 
+    @OneToOne(mappedBy = "eventFeedback", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private EventSentiment sentiment;
+
 }

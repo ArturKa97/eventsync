@@ -28,4 +28,8 @@ public class EventSentiment {
     @Column(name = "score")
     private Double score;
 
+    @OneToOne
+    @MapsId
+    private EventFeedback eventFeedback;
+
 }
