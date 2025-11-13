@@ -30,4 +30,9 @@ public class EventController {
         eventService.addEventFeedback(eventId, eventFeedback);
     }
 
+    @PostMapping("/test")
+    public String test() {
+        return eventService.getEventSentiment();
+    }
+
 }

@@ -4,7 +4,9 @@ import com.event.eventsync.entities.Event;
 import com.event.eventsync.entities.EventFeedback;
 import com.event.eventsync.repositories.EventRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
 
@@ -13,6 +15,14 @@ import java.util.List;
 public class EventService {
 
     private final EventRepository eventRepository;
+
+    private WebClient.Builder webClient = WebClient.builder();
+
+    @Value("${huggingface.model.url}")
+    private String url;
+
+    @Value("${huggingface.api.token}")
+    private String token;
 
     public void addEvent(Event event) {
         eventRepository.save(event);
@@ -27,4 +37,19 @@ public class EventService {
         event.addFeedback(eventFeedback);
         eventRepository.save(event);
     }
+
+    public String getEventSentiment() {
+        String requestBody = "{\"inputs\": \"" + "Very good" + "\"}";
+
+        return webClient.build()
+                .post()
+                .uri(url)
+                .header("Authorization", "Bearer " + token)
+                .header("Content-Type", "application/json")
+                .bodyValue(requestBody)
+                .retrieve()
+                .bodyToMono(String.class)  // Receive raw JSON string
+                .block();
+    }
+
 }
