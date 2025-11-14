@@ -2,11 +2,11 @@ package com.event.eventsync.services;
 
 import com.event.eventsync.entities.Event;
 import com.event.eventsync.entities.EventFeedback;
+import com.event.eventsync.entities.EventSentiment;
 import com.event.eventsync.repositories.EventRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
 
@@ -15,14 +15,7 @@ import java.util.List;
 public class EventService {
 
     private final EventRepository eventRepository;
-
-    private WebClient.Builder webClient = WebClient.builder();
-
-    @Value("${huggingface.model.url}")
-    private String url;
-
-    @Value("${huggingface.api.token}")
-    private String token;
+    private final EventSentimentService eventSentimentService;
 
     public void addEvent(Event event) {
         eventRepository.save(event);
@@ -31,25 +24,15 @@ public class EventService {
         return eventRepository.findAllEventsWithFeedbackAndSentiments();
     }
 
-    public void addEventFeedback(Integer eventId, EventFeedback eventFeedback) {
+    public void addEventFeedback(Integer eventId, EventFeedback eventFeedback) throws JsonProcessingException {
         Event event = eventRepository.findById(eventId).orElseThrow(() -> new RuntimeException("event not found")); // very basic exception for set up and testing purposes now
-        eventFeedback.setEvent(event);
+        EventSentiment eventSentiment = getEventSentiment();
         event.addFeedback(eventFeedback);
+        eventFeedback.addEventSentiment(eventSentiment);
         eventRepository.save(event);
     }
 
-    public String getEventSentiment() {
-        String requestBody = "{\"inputs\": \"" + "Very good" + "\"}";
-
-        return webClient.build()
-                .post()
-                .uri(url)
-                .header("Authorization", "Bearer " + token)
-                .header("Content-Type", "application/json")
-                .bodyValue(requestBody)
-                .retrieve()
-                .bodyToMono(String.class)  // Receive raw JSON string
-                .block();
+    public EventSentiment getEventSentiment() throws JsonProcessingException {
+        return eventSentimentService.getEventSentiment();
     }
-
 }
