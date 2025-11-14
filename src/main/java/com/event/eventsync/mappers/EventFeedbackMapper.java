@@ -8,9 +8,9 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring", uses = {EventSentimentMapper.class})
 public interface EventFeedbackMapper {
 
-    @Mapping(target = "eventSentimentDTO", source = "eventFeedback.sentiment")
+    @Mapping(target = "eventSentimentDTO", source = "sentiment")
     EventFeedbackDTO toDTO(EventFeedback eventFeedback);
-    @Mapping(target = "sentiment", source = "eventFeedbackDTO.eventSentimentDTO")
+    @Mapping(target = "sentiment", source = "eventSentimentDTO")
     EventFeedback toEntity(EventFeedbackDTO eventFeedbackDTO);
 
 }
