@@ -27,8 +27,12 @@ public class EventService {
         Event event = eventMapper.toEntity(eventDTO);
         eventRepository.save(event);
     }
-    public List<Event> getEvents() {
-        return eventRepository.findAllEventsWithFeedbackAndSentiments();
+    public List<EventDTO> getEvents() {
+        List<EventDTO> eventDTOList = eventRepository.findAllEventsWithFeedbackAndSentiments()
+                .stream()
+                .map(eventMapper::toDTO)
+                .collect(Collectors.toList());
+        return eventDTOList;
     }
 
     public void addEventFeedback(Integer eventId, EventFeedback eventFeedback) throws JsonProcessingException {

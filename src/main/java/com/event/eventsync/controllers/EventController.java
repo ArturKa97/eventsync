@@ -1,7 +1,6 @@
 package com.event.eventsync.controllers;
 
 import com.event.eventsync.dtos.EventDTO;
-import com.event.eventsync.entities.Event;
 import com.event.eventsync.entities.EventFeedback;
 import com.event.eventsync.entities.EventSentiment;
 import com.event.eventsync.services.EventService;
@@ -25,7 +24,7 @@ public class EventController {
     }
 
     @GetMapping
-    public List<Event> getEvents() {
+    public List<EventDTO> getEvents() {
         return eventService.getEvents();
     }
 
