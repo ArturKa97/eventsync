@@ -19,7 +19,6 @@ import lombok.NoArgsConstructor;
 public class EventSentiment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
@@ -32,6 +31,7 @@ public class EventSentiment {
     @JsonIgnore
     @OneToOne
     @MapsId
+    @JoinColumn(name = "id")
     private EventFeedback eventFeedback;
 
 }
