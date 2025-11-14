@@ -1,6 +1,7 @@
 package com.event.eventsync.entities;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -28,6 +29,7 @@ public class EventSentiment {
     @Column(name = "score")
     private Double score;
 
+    @JsonIgnore
     @OneToOne
     @MapsId
     private EventFeedback eventFeedback;

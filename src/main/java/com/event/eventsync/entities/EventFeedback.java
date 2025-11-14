@@ -42,4 +42,9 @@ public class EventFeedback {
     @OneToOne(mappedBy = "eventFeedback", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private EventSentiment sentiment;
 
+    public void addEventSentiment(EventSentiment eventSentiment) {
+        this.sentiment = eventSentiment;
+        eventSentiment.setEventFeedback(this);
+    }
+
 }
