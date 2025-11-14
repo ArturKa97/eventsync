@@ -3,6 +3,9 @@ package com.event.eventsync.entities;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -25,9 +28,15 @@ public class Event {
     private Integer id;
 
     @Column(name = "title")
+    @NotNull(message = "Event title cannot be null")
+    @NotBlank(message = "Event title cannot be empty")
+    @Size(min = 1, max = 100, message = "Event title must be between {min} and {max} characters long")
     private String title;
 
     @Column(name = "description")
+    @NotNull(message = "Event description cannot be null")
+    @NotBlank(message = "Event description cannot be empty")
+    @Size(min = 1, max = 9999, message = "Event description must be between {min} and {max} characters long")
     private String description;
 
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
