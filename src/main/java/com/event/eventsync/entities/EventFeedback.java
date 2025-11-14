@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -28,6 +31,9 @@ public class EventFeedback {
     private Integer id;
 
     @Column(name = "feedback")
+    @NotNull(message = "Event feedback cannot be null")
+    @NotBlank(message = "Event feedback cannot be empty")
+    @Size(min = 1, max = 500, message = "Event feedback must be between {min} and {max} characters long")
     private String feedback;
 
     @Column(name = "time_stamp")
