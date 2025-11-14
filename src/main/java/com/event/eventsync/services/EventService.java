@@ -26,13 +26,13 @@ public class EventService {
 
     public void addEventFeedback(Integer eventId, EventFeedback eventFeedback) throws JsonProcessingException {
         Event event = eventRepository.findById(eventId).orElseThrow(() -> new RuntimeException("event not found")); // very basic exception for set up and testing purposes now
-        EventSentiment eventSentiment = getEventSentiment();
+        EventSentiment eventSentiment = getEventSentiment(eventFeedback.getFeedback());
         event.addFeedback(eventFeedback);
         eventFeedback.addEventSentiment(eventSentiment);
         eventRepository.save(event);
     }
 
-    public EventSentiment getEventSentiment() throws JsonProcessingException {
-        return eventSentimentService.getEventSentiment();
+    public EventSentiment getEventSentiment(String feedback) throws JsonProcessingException {
+        return eventSentimentService.getEventSentiment(feedback);
     }
 }

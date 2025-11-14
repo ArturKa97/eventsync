@@ -33,8 +33,8 @@ public class EventController {
     }
 
     @PostMapping("/test")
-    public EventSentiment test() throws JsonProcessingException {
-        return eventService.getEventSentiment();
+    public EventSentiment test(String feedback) throws JsonProcessingException {
+        return eventService.getEventSentiment(feedback);
     }
 
 }

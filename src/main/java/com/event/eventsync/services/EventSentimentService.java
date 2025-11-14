@@ -24,8 +24,8 @@ public class EventSentimentService {
     @Value("${huggingface.api.token}")
     private String token;
 
-    public EventSentiment getEventSentiment() throws JsonProcessingException {
-        String requestBody = "{\"inputs\": \"" + "Very good" + "\"}";
+    public EventSentiment getEventSentiment(String feedback) throws JsonProcessingException {
+        String requestBody = "{\"inputs\": \"" + feedback + "\"}";
 
         String response = webClient.build()
                 .post()
@@ -39,7 +39,8 @@ public class EventSentimentService {
 
         ObjectMapper mapper = new ObjectMapper();
         List<List<EventSentiment>> nestedList = mapper.readValue(response,
-                new TypeReference<List<List<EventSentiment>>>() {});
+                new TypeReference<List<List<EventSentiment>>>() {
+                });
 
         List<EventSentiment> predictions = nestedList.get(0);
 
@@ -47,7 +48,18 @@ public class EventSentimentService {
                 .max(Comparator.comparingDouble(EventSentiment::getScore))
                 .orElseThrow(() -> new RuntimeException("No sentiment found"));
 
+        remapLabels(topPrediction);
+
         return topPrediction;
+    }
+
+    public void remapLabels(EventSentiment eventSentiment) {
+        switch (eventSentiment.getLabel()) {
+            case "LABEL_2" -> eventSentiment.setLabel("Positive");
+            case "LABEL_1" -> eventSentiment.setLabel("Neutral");
+            case "LABEL_0" -> eventSentiment.setLabel("Negative");
+            default -> eventSentiment.setLabel("Unknown");
+        }
     }
 
 }
