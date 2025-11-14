@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/events")
@@ -35,6 +36,11 @@ public class EventController {
     @PostMapping("/test")
     public EventSentiment test(String feedback) throws JsonProcessingException {
         return eventService.getEventSentiment(feedback);
+    }
+
+    @GetMapping("/{eventId}/summary")
+    public Map<String, Long> getEventSummary(@PathVariable(value = "eventId") Integer eventId) {
+        return eventService.getEventSummary(eventId);
     }
 
 }

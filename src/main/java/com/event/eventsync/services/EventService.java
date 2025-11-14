@@ -9,6 +9,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -34,5 +37,19 @@ public class EventService {
 
     public EventSentiment getEventSentiment(String feedback) throws JsonProcessingException {
         return eventSentimentService.getEventSentiment(feedback);
+    }
+    public Map<String, Long> getEventSummary(Integer eventId) {
+        Event event = eventRepository.findById(eventId).orElseThrow(() -> new RuntimeException("event not found"));
+
+        Map<String, Long> sentimentsMap = Stream.of("Positive", "Neutral", "Negative")
+                .collect(Collectors.toMap(
+                        label -> label,
+                        label -> event.getEventFeedbackList().stream()
+                                .filter(f -> f.getSentiment() != null)
+                                .filter(f -> f.getSentiment().getLabel().equals(label))
+                                .count()
+                ));
+
+        return sentimentsMap;
     }
 }
