@@ -1,8 +1,10 @@
 package com.event.eventsync.services;
 
+import com.event.eventsync.dtos.EventDTO;
 import com.event.eventsync.entities.Event;
 import com.event.eventsync.entities.EventFeedback;
 import com.event.eventsync.entities.EventSentiment;
+import com.event.eventsync.mappers.EventMapper;
 import com.event.eventsync.repositories.EventRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +21,10 @@ public class EventService {
 
     private final EventRepository eventRepository;
     private final EventSentimentService eventSentimentService;
+    private final EventMapper eventMapper;
 
-    public void addEvent(Event event) {
+    public void addEvent(EventDTO eventDTO) {
+        Event event = eventMapper.toEntity(eventDTO);
         eventRepository.save(event);
     }
     public List<Event> getEvents() {

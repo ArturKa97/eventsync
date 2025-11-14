@@ -1,5 +1,6 @@
 package com.event.eventsync.controllers;
 
+import com.event.eventsync.dtos.EventDTO;
 import com.event.eventsync.entities.Event;
 import com.event.eventsync.entities.EventFeedback;
 import com.event.eventsync.entities.EventSentiment;
@@ -19,8 +20,8 @@ public class EventController {
     private final EventService eventService;
 
     @PostMapping
-    public void addEvent(@RequestBody Event event) {
-        eventService.addEvent(event);
+    public void addEvent(@RequestBody EventDTO eventDTO) {
+        eventService.addEvent(eventDTO);
     }
 
     @GetMapping
