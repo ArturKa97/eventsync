@@ -1,7 +1,7 @@
 package com.event.eventsync.controllers;
 
 import com.event.eventsync.dtos.EventDTO;
-import com.event.eventsync.entities.EventFeedback;
+import com.event.eventsync.dtos.EventFeedbackDTO;
 import com.event.eventsync.entities.EventSentiment;
 import com.event.eventsync.services.EventService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -29,8 +29,8 @@ public class EventController {
     }
 
     @PostMapping("/{eventId}/feedback")
-    public void addEventFeedback(@PathVariable(value = "eventId") Integer eventId, @RequestBody EventFeedback eventFeedback) throws JsonProcessingException {
-        eventService.addEventFeedback(eventId, eventFeedback);
+    public void addEventFeedback(@PathVariable(value = "eventId") Integer eventId, @RequestBody EventFeedbackDTO eventFeedbackDTO) throws JsonProcessingException {
+        eventService.addEventFeedback(eventId, eventFeedbackDTO);
     }
 
     @PostMapping("/test")

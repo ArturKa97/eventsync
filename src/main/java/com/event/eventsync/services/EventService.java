@@ -1,9 +1,11 @@
 package com.event.eventsync.services;
 
 import com.event.eventsync.dtos.EventDTO;
+import com.event.eventsync.dtos.EventFeedbackDTO;
 import com.event.eventsync.entities.Event;
 import com.event.eventsync.entities.EventFeedback;
 import com.event.eventsync.entities.EventSentiment;
+import com.event.eventsync.mappers.EventFeedbackMapper;
 import com.event.eventsync.mappers.EventMapper;
 import com.event.eventsync.repositories.EventRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -22,6 +24,7 @@ public class EventService {
     private final EventRepository eventRepository;
     private final EventSentimentService eventSentimentService;
     private final EventMapper eventMapper;
+    private final EventFeedbackMapper eventFeedbackMapper;
 
     public void addEvent(EventDTO eventDTO) {
         Event event = eventMapper.toEntity(eventDTO);
@@ -35,9 +38,10 @@ public class EventService {
         return eventDTOList;
     }
 
-    public void addEventFeedback(Integer eventId, EventFeedback eventFeedback) throws JsonProcessingException {
+    public void addEventFeedback(Integer eventId, EventFeedbackDTO eventFeedbackDTO) throws JsonProcessingException {
         Event event = eventRepository.findById(eventId).orElseThrow(() -> new RuntimeException("event not found")); // very basic exception for set up and testing purposes now
-        EventSentiment eventSentiment = getEventSentiment(eventFeedback.getFeedback());
+        EventSentiment eventSentiment = getEventSentiment(eventFeedbackDTO.feedback());
+        EventFeedback eventFeedback = eventFeedbackMapper.toEntity(eventFeedbackDTO);
         event.addFeedback(eventFeedback);
         eventFeedback.addEventSentiment(eventSentiment);
         eventRepository.save(event);
