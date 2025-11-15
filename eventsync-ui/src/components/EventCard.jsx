@@ -9,10 +9,10 @@ import {
   StyledTitleTypography,
 } from "../styles/StyledComponents";
 
-function EventCard({ title, description }) {
+function EventCard({ title, description, onClick }) {
   return (
     <StyledCard>
-      <StyledCardActionArea>
+      <StyledCardActionArea onClick={onClick}>
         <StyledCardContent>
           <StyledTitleTypography variant="h5">{title}</StyledTitleTypography>
           <StyledDescriptionTypography variant="body2">

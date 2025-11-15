@@ -7,3 +7,7 @@ export function addEvent(workoutSession) {
 export function getEvents() {
   return HTTP.get("/events");
 }
+
+export function getEventById(eventId) {
+  return HTTP.get(`/events/${eventId}`);
+}
