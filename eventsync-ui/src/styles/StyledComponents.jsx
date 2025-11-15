@@ -76,3 +76,21 @@ export const StyledDescriptionTypography = styled(Typography)({
   whiteSpace: "normal",
   wordBreak: "break-word",
 });
+
+export const FormBox = styled(Box)({
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+});
+
+export const FormTextFieldBox = styled(Box)({
+  display: "flex",
+  gap: "2.4rem",
+  alignItems: "center",
+});
+
+export const FormActionButtonBox = styled(Box)({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+});

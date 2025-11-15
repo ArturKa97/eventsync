@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { MainContainer } from "../styles/StyledComponents";
 import { getEvents } from "../api/EventApi";
 import EventCard from "./EventCard";
+import EventForm from "./EventInfo";
 
 function EventCardList() {
   const [events, setEvents] = useState([]);
@@ -18,6 +19,7 @@ function EventCardList() {
 
   return (
     <MainContainer>
+      <EventForm />
       {events.map((event) => (
         <EventCard
           key={event.id}
