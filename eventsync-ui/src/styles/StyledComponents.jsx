@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { AppBar, Box, Typography } from "@mui/material";
+import { AppBar, Box, Typography, Container } from "@mui/material";
 
 
 export const AppBox = styled(Box)({
@@ -24,4 +24,16 @@ export const LogoTypography = styled(Typography)({
     fontSize: "2.0rem",
     letterSpacing: "0.15rem",
     fontWeight: "600",
+  });
+
+  export const AppRoutesBox = styled(Box)({
+    flex: 1,
+  });
+
+  export const MainContainer = styled(Container)({
+    display: "flex",
+    flexDirection: "row",
+    maxWidth: "1200",
+    padding: "4.8rem 0 9.6rem 0",
+    margin: "0 auto",
   });
