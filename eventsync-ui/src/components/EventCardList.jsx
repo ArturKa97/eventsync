@@ -1,15 +1,31 @@
-import { MainContainer } from "../styles/StyledComponents"
-import EventCard from "./EventCard"
+import { useState, useEffect } from "react";
+import { MainContainer } from "../styles/StyledComponents";
+import { getEvents } from "../api/EventApi";
+import EventCard from "./EventCard";
 
 function EventCardList() {
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    getEvents()
+      .then((response) => {
+        setEvents(response.data);
+      })
+      .catch((error) => {
+        console.log("Error fetching events:", error);
+      });
+  }, []);
+
   return (
     <MainContainer>
-    <EventCard></EventCard>
-    <EventCard></EventCard>
-    <EventCard></EventCard>
-    <EventCard></EventCard>
+      {events.map((event) => (
+        <EventCard
+          key={event.id}
+          title={event.title}
+          description={event.description}
+        />
+      ))}
     </MainContainer>
-    
-  )
+  );
 }
-export default EventCardList
+export default EventCardList;

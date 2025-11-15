@@ -1,14 +1,16 @@
-import { HeaderLogoBox, LogoTypography, StyledHeader } from "../styles/StyledComponents"
+import {
+  HeaderLogoBox,
+  LogoTypography,
+  StyledHeader,
+} from "../styles/StyledComponents";
 
 function Header() {
-    return (
-        <StyledHeader>
-            <HeaderLogoBox>
-                <LogoTypography>
-                    EventSync
-                </LogoTypography>
-            </HeaderLogoBox>
-        </StyledHeader>
-    )
+  return (
+    <StyledHeader>
+      <HeaderLogoBox>
+        <LogoTypography>EventSync</LogoTypography>
+      </HeaderLogoBox>
+    </StyledHeader>
+  );
 }
-export default Header
+export default Header;
