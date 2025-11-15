@@ -25,7 +25,7 @@ public class EventSentimentService {
     @Value("${huggingface.api.token}")
     private String token;
 
-    public EventSentiment getEventSentiment(String feedback) throws JsonProcessingException {
+    public EventSentiment getEventSentiment(String feedback) {
         String requestBody = "{\"inputs\": \"" + feedback + "\"}";
 
         String response = webClient.build()
@@ -39,9 +39,22 @@ public class EventSentimentService {
                 .block();
 
         ObjectMapper mapper = new ObjectMapper();
-        List<List<EventSentiment>> nestedList = mapper.readValue(response,
-                new TypeReference<List<List<EventSentiment>>>() {
-                });
+        List<List<EventSentiment>> nestedList;
+        try {
+            nestedList = mapper.readValue(
+                    response,
+                    new TypeReference<>() {
+                    }
+            );
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(
+                    "Failed to parse JSON into List<List<EventSentiment>>. " + response, e
+            );
+        }
+
+        if (nestedList.isEmpty() || nestedList.get(0).isEmpty()) {
+            throw new EntityNotFoundException("No Event Sentiment predictions returned");
+        }
 
         List<EventSentiment> predictions = nestedList.get(0);
 

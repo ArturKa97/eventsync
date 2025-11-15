@@ -8,7 +8,6 @@ import com.event.eventsync.entities.EventSentiment;
 import com.event.eventsync.mappers.EventFeedbackMapper;
 import com.event.eventsync.mappers.EventMapper;
 import com.event.eventsync.repositories.EventRepository;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -42,7 +41,7 @@ public class EventService {
         return eventDTOList;
     }
 
-    public void addEventFeedback(Integer eventId, EventFeedbackDTO eventFeedbackDTO) throws JsonProcessingException {
+    public void addEventFeedback(Integer eventId, EventFeedbackDTO eventFeedbackDTO) {
         Event event = eventRepository.findById(eventId)
                 .orElseThrow(() -> new EntityNotFoundException("Event with id [%s] not found".formatted(eventId)));
         EventSentiment eventSentiment = getEventSentiment(eventFeedbackDTO.feedback());
@@ -52,7 +51,7 @@ public class EventService {
         eventRepository.save(event);
     }
 
-    public EventSentiment getEventSentiment(String feedback) throws JsonProcessingException {
+    public EventSentiment getEventSentiment(String feedback) {
         return eventSentimentService.getEventSentiment(feedback);
     }
     public Map<String, Long> getEventSummary(Integer eventId) {

@@ -4,7 +4,6 @@ import com.event.eventsync.dtos.EventDTO;
 import com.event.eventsync.dtos.EventFeedbackDTO;
 import com.event.eventsync.entities.EventSentiment;
 import com.event.eventsync.services.EventService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,12 +28,12 @@ public class EventController {
     }
 
     @PostMapping("/{eventId}/feedback")
-    public void addEventFeedback(@PathVariable(value = "eventId") Integer eventId, @RequestBody EventFeedbackDTO eventFeedbackDTO) throws JsonProcessingException {
+    public void addEventFeedback(@PathVariable(value = "eventId") Integer eventId, @RequestBody EventFeedbackDTO eventFeedbackDTO) {
         eventService.addEventFeedback(eventId, eventFeedbackDTO);
     }
 
     @PostMapping("/test")
-    public EventSentiment test(String feedback) throws JsonProcessingException {
+    public EventSentiment test(String feedback) {
         return eventService.getEventSentiment(feedback);
     }
 
