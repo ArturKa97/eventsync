@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { MainContainer } from "../styles/StyledComponents";
 import { getEvents } from "../api/EventApi";
 import EventCard from "./EventCard";
-import EventForm from "./EventForm";
+import EventForm from "../forms/EventForm";
 import { useNavigate } from "react-router-dom";
 
 function EventCardList() {
