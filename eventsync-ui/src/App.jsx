@@ -1,15 +1,18 @@
-import EventCardList from "./components/EventCardList";
 import Header from "./components/Header";
+import PageRoutes from "./routes/PageRoutes";
+import { BrowserRouter } from "react-router-dom";
 import { AppBox, AppRoutesBox } from "./styles/StyledComponents";
 
 function App() {
   return (
-    <AppBox>
-      <Header />
-      <AppRoutesBox>
-        <EventCardList></EventCardList>
-      </AppRoutesBox>
-    </AppBox>
+    <BrowserRouter>
+      <AppBox>
+        <Header />
+        <AppRoutesBox>
+          <PageRoutes />
+        </AppRoutesBox>
+      </AppBox>
+    </BrowserRouter>
   );
 }
 
