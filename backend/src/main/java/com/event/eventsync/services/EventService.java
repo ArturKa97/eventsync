@@ -40,6 +40,11 @@ public class EventService {
         }
         return eventDTOList;
     }
+    public EventDTO getEventById(Integer eventId) {
+        Event event = eventRepository.findById(eventId)
+                .orElseThrow(() -> new EntityNotFoundException("Event with id [%s] not found".formatted(eventId)));
+        return eventMapper.toDTO(event);
+    }
 
     public void addEventFeedback(Integer eventId, EventFeedbackDTO eventFeedbackDTO) {
         Event event = eventRepository.findById(eventId)
@@ -69,4 +74,5 @@ public class EventService {
 
         return sentimentsMap;
     }
+
 }

@@ -27,6 +27,11 @@ public class EventController {
         return eventService.getEvents();
     }
 
+    @GetMapping("/{eventId}")
+    public EventDTO getEventById(@PathVariable(value = "eventId") Integer eventId) {
+        return eventService.getEventById(eventId);
+    }
+
     @PostMapping("/{eventId}/feedback")
     public void addEventFeedback(@PathVariable(value = "eventId") Integer eventId, @RequestBody EventFeedbackDTO eventFeedbackDTO) {
         eventService.addEventFeedback(eventId, eventFeedbackDTO);
