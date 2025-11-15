@@ -9,6 +9,7 @@ import com.event.eventsync.mappers.EventFeedbackMapper;
 import com.event.eventsync.mappers.EventMapper;
 import com.event.eventsync.repositories.EventRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -35,11 +36,15 @@ public class EventService {
                 .stream()
                 .map(eventMapper::toDTO)
                 .collect(Collectors.toList());
+        if (eventDTOList.isEmpty()) {
+            throw new EntityNotFoundException("No Events found");
+        }
         return eventDTOList;
     }
 
     public void addEventFeedback(Integer eventId, EventFeedbackDTO eventFeedbackDTO) throws JsonProcessingException {
-        Event event = eventRepository.findById(eventId).orElseThrow(() -> new RuntimeException("event not found")); // very basic exception for set up and testing purposes now
+        Event event = eventRepository.findById(eventId)
+                .orElseThrow(() -> new EntityNotFoundException("Event with id [%s] not found".formatted(eventId)));
         EventSentiment eventSentiment = getEventSentiment(eventFeedbackDTO.feedback());
         EventFeedback eventFeedback = eventFeedbackMapper.toEntity(eventFeedbackDTO);
         event.addFeedback(eventFeedback);
@@ -51,7 +56,8 @@ public class EventService {
         return eventSentimentService.getEventSentiment(feedback);
     }
     public Map<String, Long> getEventSummary(Integer eventId) {
-        Event event = eventRepository.findById(eventId).orElseThrow(() -> new RuntimeException("event not found"));
+        Event event = eventRepository.findById(eventId)
+                .orElseThrow(() -> new EntityNotFoundException("Event with id [%s] not found".formatted(eventId)));
 
         Map<String, Long> sentimentsMap = Stream.of("Positive", "Neutral", "Negative")
                 .collect(Collectors.toMap(

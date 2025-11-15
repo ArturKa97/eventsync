@@ -4,6 +4,7 @@ import com.event.eventsync.entities.EventSentiment;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -46,7 +47,7 @@ public class EventSentimentService {
 
         EventSentiment topPrediction = predictions.stream()
                 .max(Comparator.comparingDouble(EventSentiment::getScore))
-                .orElseThrow(() -> new RuntimeException("No sentiment found"));
+                .orElseThrow(() -> new EntityNotFoundException("EventSentiment not found"));
 
         remapLabels(topPrediction);
 
