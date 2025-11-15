@@ -5,11 +5,19 @@ import {
   FormTextFieldBox,
 } from "../styles/StyledComponents";
 import { Button, TextField } from "@mui/material";
+import { addEvent } from "../api/EventApi";
 
-function EventForm() {
-  const onSubmit = (values, { setSubmitting }) => {
-    console.log(values);
-    setSubmitting(false);
+function EventForm({ refreshEvents }) {
+  const onSubmit = async (values, { setSubmitting, resetForm }) => {
+    try {
+      await addEvent(values);
+      refreshEvents();
+      resetForm();
+    } catch (error) {
+      console.error("Error adding event:", error);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (

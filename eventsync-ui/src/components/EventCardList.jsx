@@ -2,40 +2,38 @@ import { useState, useEffect } from "react";
 import { MainContainer } from "../styles/StyledComponents";
 import { getEvents } from "../api/EventApi";
 import EventCard from "./EventCard";
-import EventForm from "./EventInfo";
+import EventForm from "./EventForm";
 
 function EventCardList() {
   const [events, setEvents] = useState([]);
 
+  const fetchEvents = async () => {
+    try {
+      const response = await getEvents();
+      setEvents(response.data);
+    } catch (error) {
+      console.error("Error fetching events:", error);
+    }
+  };
+
   useEffect(() => {
-    getEvents()
-      .then((response) => {
-        setEvents(response.data);
-      })
-      .catch((error) => {
-        console.log("Error fetching events:", error);
-      });
+    fetchEvents();
   }, []);
 
   return (
     <MainContainer>
-      <EventForm />
-      {events.map((event) => (
-        <EventCard
-          key={event.id}
-          title={event.title}
-          description={event.description}
-        />
-      ))}
-      <EventCard
-        title={"TESTAAAAAAAAAAAAAAAAAAAAAAAAAAAAS"}
-        description={"description1"}
-      />
-      <EventCard title={"test2"} description={"description2"} />
-      <EventCard title={"test1"} description={"description1"} />
-      <EventCard title={"test2"} description={"description2"} />
-      <EventCard title={"test1"} description={"description1"} />
-      <EventCard title={"test2"} description={"description2"} />
+      <EventForm refreshEvents={fetchEvents} />
+      {events && events.length > 0 && (
+        <>
+          {events.map((event) => (
+            <EventCard
+              key={event.id}
+              title={event.title}
+              description={event.description}
+            />
+          ))}
+        </>
+      )}
     </MainContainer>
   );
 }
