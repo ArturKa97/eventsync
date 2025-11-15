@@ -1,5 +1,13 @@
 import styled from "@emotion/styled";
-import { AppBar, Box, Typography, Container } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Typography,
+  Container,
+  Card,
+  CardContent,
+  CardActionArea,
+} from "@mui/material";
 
 export const AppBox = styled(Box)({
   display: "flex",
@@ -32,7 +40,39 @@ export const AppRoutesBox = styled(Box)({
 export const MainContainer = styled(Container)({
   display: "flex",
   flexDirection: "row",
+  flexWrap: "wrap",
   maxWidth: "1200",
   padding: "4.8rem 0 9.6rem 0",
   margin: "0 auto",
+});
+
+export const StyledCard = styled(Card)({
+  width: 270,
+  height: 200,
+  margin: "0.5rem 0.5rem",
+});
+
+export const StyledCardActionArea = styled(CardActionArea)({
+  height: "100%",
+});
+
+export const StyledCardContent = styled(CardContent)({
+  display: "flex",
+  flexDirection: "column",
+  height: "100%",
+});
+
+export const StyledTitleTypography = styled(Typography)({
+  flex: 1,
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  whiteSpace: "normal",
+  wordBreak: "break-word",
+});
+export const StyledDescriptionTypography = styled(Typography)({
+  flex: 1,
+  display: "flex",
+  whiteSpace: "normal",
+  wordBreak: "break-word",
 });

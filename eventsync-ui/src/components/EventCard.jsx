@@ -1,22 +1,26 @@
-import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import CardActionArea from "@mui/material/CardActionArea";
+import {
+  StyledCard,
+  StyledCardActionArea,
+  StyledCardContent,
+  StyledDescriptionTypography,
+  StyledTitleTypography,
+} from "../styles/StyledComponents";
 
 function EventCard({ title, description }) {
   return (
-    <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea>
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {title}
-          </Typography>
-          <Typography variant="body2" sx={{ color: "text.secondary" }}>
+    <StyledCard>
+      <StyledCardActionArea>
+        <StyledCardContent>
+          <StyledTitleTypography variant="h5">{title}</StyledTitleTypography>
+          <StyledDescriptionTypography variant="body2">
             {description}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-    </Card>
+          </StyledDescriptionTypography>
+        </StyledCardContent>
+      </StyledCardActionArea>
+    </StyledCard>
   );
 }
 export default EventCard;

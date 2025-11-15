@@ -25,6 +25,15 @@ function EventCardList() {
           description={event.description}
         />
       ))}
+      <EventCard
+        title={"TESTAAAAAAAAAAAAAAAAAAAAAAAAAAAAS"}
+        description={"description1"}
+      />
+      <EventCard title={"test2"} description={"description2"} />
+      <EventCard title={"test1"} description={"description1"} />
+      <EventCard title={"test2"} description={"description2"} />
+      <EventCard title={"test1"} description={"description1"} />
+      <EventCard title={"test2"} description={"description2"} />
     </MainContainer>
   );
 }
