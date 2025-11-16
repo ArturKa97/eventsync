@@ -93,11 +93,17 @@ export const FormBox = styled(Box)({
   justifyContent: "space-between",
   alignItems: "center",
 });
+export const FeedbackFormBox = styled(Box)({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "left",
+});
 
 export const FormTextFieldBox = styled(Box)({
   display: "flex",
   gap: "2.4rem",
   alignItems: "center",
+  margin: "0.5rem",
 });
 
 export const FormActionButtonBox = styled(Box)({

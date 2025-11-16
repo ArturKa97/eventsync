@@ -1,7 +1,7 @@
 import { Form, Field, Formik } from "formik";
 import {
+  FeedbackFormBox,
   FormActionButtonBox,
-  FormBox,
   FormTextFieldBox,
 } from "../styles/StyledComponents";
 import { Button, TextField } from "@mui/material";
@@ -28,22 +28,24 @@ function EventFeedbackForm({ eventId }) {
     >
       {({ isSubmitting, errors, touched }) => (
         <Form>
-          <FormBox>
+          <FeedbackFormBox>
             <FormTextFieldBox>
               <Field
                 label="Feedback"
                 as={TextField}
-                placeholder="Feedback"
+                placeholder="Write your feedback here..."
                 name="feedback"
-                type="text"
+                multiline
+                rows={4}
+                fullWidth
               />
             </FormTextFieldBox>
             <FormActionButtonBox>
-              <Button type="submit" disabled={isSubmitting}>
+              <Button type="submit" variant="outlined" disabled={isSubmitting}>
                 Add
               </Button>
             </FormActionButtonBox>
-          </FormBox>
+          </FeedbackFormBox>
         </Form>
       )}
     </Formik>
