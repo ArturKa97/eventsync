@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Typography, CircularProgress, Box } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { getEventById, getEventSummary } from "../api/EventApi";
@@ -11,6 +11,8 @@ import {
   StyledDescriptionTypography,
   StyledTitleTypography,
   SingleFeedbackBox,
+  LoadingBox,
+  CenterBox,
 } from "../styles/StyledComponents";
 import SentimentNeutralIcon from "@mui/icons-material/SentimentNeutral";
 import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
@@ -19,6 +21,7 @@ import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt
 function EventInfo() {
   const [eventInfo, setEventInfo] = useState({});
   const [eventSummary, setEventSummary] = useState({});
+  const [loading, setLoading] = useState(true);
   const location = useLocation(); //getting the id passed down from clicking the EventCard
 
   const sentimentOrder = ["Positive", "Neutral", "Negative"];
@@ -34,20 +37,26 @@ function EventInfo() {
   };
 
   const fetchEvent = async () => {
+    setLoading(true);
     try {
       const response = await getEventById(location.state);
       setEventInfo(response.data);
     } catch (error) {
       console.error("Error fetching event:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
   const fetchEventSummary = async () => {
+    setLoading(true);
     try {
       const response = await getEventSummary(location.state);
       setEventSummary(response.data);
     } catch (error) {
       console.error("Error fetching event summary:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -81,6 +90,14 @@ function EventInfo() {
         refreshEvent={fetchEvent}
         refreshSummary={fetchEventSummary}
       />
+      {loading && (
+        <CenterBox>
+          <LoadingBox>
+            <Typography variant="body1">GENERATING SENTIMENT</Typography>
+            <CircularProgress />
+          </LoadingBox>
+        </CenterBox>
+      )}
       {eventInfo.eventFeedbackList?.map((eventFeedback, index) => (
         <SingleFeedbackBox key={index}>
           <Typography

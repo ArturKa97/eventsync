@@ -157,3 +157,20 @@ export const NoEventsTypography = styled(Typography)({
   justifyContent: "center",
   margin: "0.5rem",
 });
+
+export const LoadingBox = styled(Box)({
+  display: "flex",
+  flexDirection: "column",
+  width: "50%",
+  alignItems: "center",
+  justifyContent: "center",
+  margin: "1.0rem",
+  gap: "0.5rem",
+  padding: "1.0rem",
+});
+export const CenterBox = styled(Box)({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+});
