@@ -2,6 +2,8 @@
 
 **Live Demo**  
 🌐 Frontend: http://eventsyncbucket.s3-website.eu-central-1.amazonaws.com  
+(Press Event cards to go inside, and the "EventSync" logo to go to home page)!
+
 📘 Swagger UI (Backend): http://eventsync-env.eba-zbnkv3xm.eu-central-1.elasticbeanstalk.com/swagger-ui/index.html
 
 ---
