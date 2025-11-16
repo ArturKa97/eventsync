@@ -75,4 +75,9 @@ public class EventService {
         return sentimentsMap;
     }
 
+    public void deleteEventById(Integer eventId) {
+        Event event = eventRepository.findById(eventId)
+                .orElseThrow(() -> new EntityNotFoundException("Event with id [%s] not found".formatted(eventId)));
+        eventRepository.delete(event);
+    }
 }
