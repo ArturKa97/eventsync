@@ -6,6 +6,7 @@ import {
 } from "../styles/StyledComponents";
 import { Button, TextField } from "@mui/material";
 import { addEventFeedback } from "../api/EventApi";
+import { eventFeedbackFormSchema } from "../schemas";
 
 function EventFeedbackForm({ eventId, refreshEvent, refreshSummary }) {
   const onSubmit = async (values, { setSubmitting, resetForm }) => {
@@ -26,6 +27,7 @@ function EventFeedbackForm({ eventId, refreshEvent, refreshSummary }) {
       initialValues={{
         feedback: "",
       }}
+      validationSchema={eventFeedbackFormSchema}
       onSubmit={onSubmit}
     >
       {({ isSubmitting, errors, touched }) => (
@@ -37,6 +39,9 @@ function EventFeedbackForm({ eventId, refreshEvent, refreshSummary }) {
                 as={TextField}
                 placeholder="Write your feedback here..."
                 name="feedback"
+                type="text"
+                error={touched.feedback && !!errors.feedback}
+                helperText={touched.feedback && errors.feedback}
                 multiline
                 rows={4}
                 fullWidth

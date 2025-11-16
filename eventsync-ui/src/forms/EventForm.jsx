@@ -2,6 +2,7 @@ import { Form, Field, Formik } from "formik";
 import { FormActionButtonBox, FormBox } from "../styles/StyledComponents";
 import { Button, TextField } from "@mui/material";
 import { addEvent } from "../api/EventApi";
+import { eventFormSchema } from "../schemas";
 
 function EventForm({ refreshEvents }) {
   const onSubmit = async (values, { setSubmitting, resetForm }) => {
@@ -22,6 +23,7 @@ function EventForm({ refreshEvents }) {
         title: "",
         description: "",
       }}
+      validationSchema={eventFormSchema}
       onSubmit={onSubmit}
     >
       {({ isSubmitting, errors, touched }) => (
@@ -32,6 +34,8 @@ function EventForm({ refreshEvents }) {
               as={TextField}
               placeholder="Title"
               name="title"
+              error={touched.title && !!errors.title}
+              helperText={touched.title && errors.title}
               type="text"
               fullWidth
               multiline
@@ -43,6 +47,8 @@ function EventForm({ refreshEvents }) {
               as={TextField}
               name="description"
               type="text"
+              error={touched.description && !!errors.description}
+              helperText={touched.description && errors.description}
               fullWidth
               multiline
               minRows={4}
