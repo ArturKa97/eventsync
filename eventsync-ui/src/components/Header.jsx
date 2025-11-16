@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import {
   HeaderLogoBox,
   LogoTypography,
@@ -5,10 +6,16 @@ import {
 } from "../styles/StyledComponents";
 
 function Header() {
+  const navigate = useNavigate();
   return (
     <StyledHeader>
       <HeaderLogoBox>
-        <LogoTypography>EventSync</LogoTypography>
+        <LogoTypography
+          style={{ cursor: "pointer" }}
+          onClick={() => navigate("/")}
+        >
+          EventSync
+        </LogoTypography>
       </HeaderLogoBox>
     </StyledHeader>
   );
