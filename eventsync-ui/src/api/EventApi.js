@@ -15,3 +15,7 @@ export function getEventById(eventId) {
 export function addEventFeedback(eventId, eventFeedback) {
   return HTTP.post(`/events/${eventId}/feedback`, eventFeedback);
 }
+
+export function getEventSummary(eventId) {
+  return HTTP.get(`/events/${eventId}/summary`);
+}
