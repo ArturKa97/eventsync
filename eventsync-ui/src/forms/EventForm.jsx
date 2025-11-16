@@ -1,9 +1,5 @@
 import { Form, Field, Formik } from "formik";
-import {
-  FormActionButtonBox,
-  FormBox,
-  FormTextFieldBox,
-} from "../styles/StyledComponents";
+import { FormActionButtonBox, FormBox } from "../styles/StyledComponents";
 import { Button, TextField } from "@mui/material";
 import { addEvent } from "../api/EventApi";
 
@@ -31,23 +27,29 @@ function EventForm({ refreshEvents }) {
       {({ isSubmitting, errors, touched }) => (
         <Form>
           <FormBox>
-            <FormTextFieldBox>
-              <Field
-                label="Title"
-                as={TextField}
-                placeholder="Title"
-                name="title"
-                type="text"
-              />
-              <Field
-                label="Description"
-                as={TextField}
-                name="description"
-                type="text"
-              />
-            </FormTextFieldBox>
+            <Field
+              label="Title"
+              as={TextField}
+              placeholder="Title"
+              name="title"
+              type="text"
+              fullWidth
+              multiline
+              style={{ marginBottom: "1rem" }}
+            />
+
+            <Field
+              label="Description"
+              as={TextField}
+              name="description"
+              type="text"
+              fullWidth
+              multiline
+              minRows={4}
+              style={{ marginBottom: "0.5rem" }}
+            />
             <FormActionButtonBox>
-              <Button type="submit" disabled={isSubmitting}>
+              <Button type="submit" variant="outlined" disabled={isSubmitting}>
                 Add
               </Button>
             </FormActionButtonBox>

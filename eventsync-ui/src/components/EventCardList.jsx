@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { MainContainer } from "../styles/StyledComponents";
+import { MainContainer, MainContainerColumn } from "../styles/StyledComponents";
 import { getEvents } from "../api/EventApi";
 import EventCard from "./EventCard";
 import EventForm from "../forms/EventForm";
@@ -27,10 +27,10 @@ function EventCardList() {
   }, []);
 
   return (
-    <MainContainer>
+    <MainContainerColumn>
       <EventForm refreshEvents={fetchEvents} />
       {events && events.length > 0 && (
-        <>
+        <MainContainer>
           {events.map((event) => (
             <EventCard
               key={event.id}
@@ -39,9 +39,9 @@ function EventCardList() {
               description={event.description}
             />
           ))}
-        </>
+        </MainContainer>
       )}
-    </MainContainer>
+    </MainContainerColumn>
   );
 }
 export default EventCardList;

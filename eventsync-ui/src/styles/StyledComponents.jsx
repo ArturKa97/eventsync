@@ -89,9 +89,12 @@ export const StyledDescriptionTypography = styled(Typography)({
 });
 
 export const FormBox = styled(Box)({
+  width: "100%",
   display: "flex",
-  justifyContent: "space-between",
+  flexDirection: "column",
   alignItems: "center",
+  padding: "1rem 0",
+  borderBottom: "2px solid rgb(0, 0, 0)",
 });
 export const FeedbackFormBox = styled(Box)({
   display: "flex",
