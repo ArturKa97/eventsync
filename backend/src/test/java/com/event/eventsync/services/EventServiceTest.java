@@ -4,6 +4,7 @@ import com.event.eventsync.dtos.EventDTO;
 import com.event.eventsync.entities.Event;
 import com.event.eventsync.mappers.EventMapper;
 import com.event.eventsync.repositories.EventRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -13,6 +14,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -50,6 +53,18 @@ class EventServiceTest {
                 .isEqualTo(eventDTO);
         verify(eventRepository).getEventById(event.getId());
         verify(eventMapper).toDTO(event);
+    }
+
+    @Test
+    public void EventService_GetEventById_ShouldThrowEntityNotFoundException() {
+        //Given
+        Integer nonExistentID = 999999;
+        when(eventRepository.getEventById(nonExistentID)).thenReturn(Optional.empty());
+        //When + Then
+        EntityNotFoundException exception = assertThrows(EntityNotFoundException.class, () -> {
+            eventService.getEventById(nonExistentID);
+        });
+        assertEquals("Event with id [999999] not found", exception.getMessage());
     }
 
 }
