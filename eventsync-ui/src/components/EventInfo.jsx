@@ -10,6 +10,7 @@ import {
   MainContainerColumn,
   StyledDescriptionTypography,
   StyledTitleTypography,
+  SingleFeedbackBox,
 } from "../styles/StyledComponents";
 import SentimentNeutralIcon from "@mui/icons-material/SentimentNeutral";
 import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
@@ -25,6 +26,11 @@ function EventInfo() {
     Positive: <SentimentSatisfiedAltIcon sx={{ color: "green" }} />,
     Neutral: <SentimentNeutralIcon sx={{ color: "yellow" }} />,
     Negative: <SentimentVeryDissatisfiedIcon sx={{ color: "red" }} />,
+  };
+  const sentimentColors = {
+    Positive: "#81c784",
+    Neutral: "#fff176",
+    Negative: "#e57373",
   };
 
   const fetchEvent = async () => {
@@ -72,12 +78,24 @@ function EventInfo() {
       </EventMainBox>
       <EventFeedbackForm eventId={eventInfo.id} />
       {eventInfo.eventFeedbackList?.map((eventFeedback, index) => (
-        <div key={index}>
-          <Typography>{eventFeedback.timeStamp}</Typography>
-          <Typography>{eventFeedback.feedback}</Typography>
-          <Typography>{eventFeedback.eventSentimentDTO.label}</Typography>
-          <Typography>{eventFeedback.eventSentimentDTO.score}</Typography>
-        </div>
+        <SingleFeedbackBox key={index}>
+          <Typography
+            variant="h5"
+            fontSize={"24px"}
+            sx={{
+              backgroundColor:
+                sentimentColors[eventFeedback.eventSentimentDTO.label],
+              padding: "0.5rem",
+            }}
+          >
+            {eventFeedback.eventSentimentDTO.label}:{" "}
+            {eventFeedback.eventSentimentDTO.score}
+          </Typography>
+          <Typography variant="body2">
+            POSTED: {eventFeedback.timeStamp}
+          </Typography>
+          <Typography variant="h6">{eventFeedback.feedback}</Typography>
+        </SingleFeedbackBox>
       ))}
     </MainContainerColumn>
   );

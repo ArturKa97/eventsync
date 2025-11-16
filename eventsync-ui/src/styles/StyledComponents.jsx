@@ -137,3 +137,12 @@ export const EventMainBox = styled(Box)({
   margin: "1.0rem 0rem",
   borderBottom: "2px solid rgb(0, 0, 0)",
 });
+
+export const SingleFeedbackBox = styled(Box)({
+  display: "flex",
+  flexDirection: "column",
+  gap: "0.5rem",
+  padding: "1.0rem",
+  margin: "1.0rem 0rem",
+  border: "2px solid rgb(0, 0, 0)",
+});
