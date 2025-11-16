@@ -7,10 +7,12 @@ import {
 import { Button, TextField } from "@mui/material";
 import { addEventFeedback } from "../api/EventApi";
 
-function EventFeedbackForm({ eventId }) {
+function EventFeedbackForm({ eventId, refreshEvent, refreshSummary }) {
   const onSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
       await addEventFeedback(eventId, values);
+      refreshEvent();
+      refreshSummary();
       resetForm();
     } catch (error) {
       console.error("Error adding event:", error);

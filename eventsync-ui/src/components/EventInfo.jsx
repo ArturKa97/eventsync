@@ -76,7 +76,11 @@ function EventInfo() {
           ))}
         </EventSummaryBox>
       </EventMainBox>
-      <EventFeedbackForm eventId={eventInfo.id} />
+      <EventFeedbackForm
+        eventId={eventInfo.id}
+        refreshEvent={fetchEvent}
+        refreshSummary={fetchEventSummary}
+      />
       {eventInfo.eventFeedbackList?.map((eventFeedback, index) => (
         <SingleFeedbackBox key={index}>
           <Typography
