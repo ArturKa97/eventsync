@@ -30,7 +30,7 @@ function EventFeedbackForm({ eventId, refreshEvent, refreshSummary }) {
       validationSchema={eventFeedbackFormSchema}
       onSubmit={onSubmit}
     >
-      {({ isSubmitting, errors, touched }) => (
+      {({ isSubmitting, errors, touched, values }) => (
         <Form>
           <FeedbackFormBox>
             <FormTextFieldBox>
@@ -48,7 +48,11 @@ function EventFeedbackForm({ eventId, refreshEvent, refreshSummary }) {
               />
             </FormTextFieldBox>
             <FormActionButtonBox>
-              <Button type="submit" variant="outlined" disabled={isSubmitting}>
+              <Button
+                type="submit"
+                variant="outlined"
+                disabled={isSubmitting || !values.feedback.trim()}
+              >
                 Add
               </Button>
             </FormActionButtonBox>
