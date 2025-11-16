@@ -60,7 +60,7 @@ public class EventService {
         return eventSentimentService.getEventSentiment(feedback);
     }
     public Map<String, Long> getEventSummary(Integer eventId) {
-        Event event = eventRepository.findById(eventId)
+        Event event = eventRepository.getEventById(eventId)
                 .orElseThrow(() -> new EntityNotFoundException("Event with id [%s] not found".formatted(eventId)));
 
         Map<String, Long> sentimentsMap = Stream.of("Positive", "Neutral", "Negative")
@@ -76,7 +76,7 @@ public class EventService {
     }
 
     public void deleteEventById(Integer eventId) {
-        Event event = eventRepository.findById(eventId)
+        Event event = eventRepository.getEventById(eventId)
                 .orElseThrow(() -> new EntityNotFoundException("Event with id [%s] not found".formatted(eventId)));
         eventRepository.delete(event);
     }

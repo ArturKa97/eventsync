@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Builder
 public record EventFeedbackDTO(
-        Long id,
+        Integer id,
         String feedback,
         @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
         LocalDateTime timeStamp,
