@@ -1,9 +1,14 @@
 import { useState, useEffect } from "react";
-import { MainContainer, MainContainerColumn } from "../styles/StyledComponents";
-import { getEvents } from "../api/EventApi";
+import {
+  MainContainer,
+  MainContainerColumn,
+  NoEventsTypography,
+} from "../styles/StyledComponents";
+import { deleteEventById, getEvents } from "../api/EventApi";
 import EventCard from "./EventCard";
 import EventForm from "../forms/EventForm";
 import { useNavigate } from "react-router-dom";
+import { Typography } from "@mui/material";
 
 function EventCardList() {
   const [events, setEvents] = useState([]);
@@ -19,6 +24,15 @@ function EventCardList() {
       setEvents(response.data);
     } catch (error) {
       console.error("Error fetching events:", error);
+      setEvents([]);
+    }
+  };
+  const deleteEvent = async (eventId) => {
+    try {
+      await deleteEventById(eventId);
+      fetchEvents();
+    } catch (error) {
+      console.error("Error fetching events:", error);
     }
   };
 
@@ -29,7 +43,7 @@ function EventCardList() {
   return (
     <MainContainerColumn>
       <EventForm refreshEvents={fetchEvents} />
-      {events && events.length > 0 && (
+      {events && events.length > 0 ? (
         <MainContainer>
           {events.map((event) => (
             <EventCard
@@ -37,9 +51,12 @@ function EventCardList() {
               onClick={() => selectEvent(event.id)}
               title={event.title}
               description={event.description}
+              onDelete={() => deleteEvent(event.id)}
             />
           ))}
         </MainContainer>
+      ) : (
+        <NoEventsTypography>No events available</NoEventsTypography>
       )}
     </MainContainerColumn>
   );

@@ -58,16 +58,17 @@ export const StyledCard = styled(Card)({
   width: 270,
   height: 200,
   margin: "0.5rem 0.5rem",
+  display: "flex",
+  flexDirection: "column",
 });
 
 export const StyledCardActionArea = styled(CardActionArea)({
-  height: "100%",
+  flexGrow: 1,
 });
 
 export const StyledCardContent = styled(CardContent)({
   display: "flex",
   flexDirection: "column",
-  height: "100%",
 });
 
 export const StyledTitleTypography = styled(Typography)({
@@ -148,4 +149,11 @@ export const SingleFeedbackBox = styled(Box)({
   padding: "1.0rem",
   margin: "1.0rem 0rem",
   border: "2px solid rgb(0, 0, 0)",
+});
+
+export const NoEventsTypography = styled(Typography)({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  margin: "0.5rem",
 });

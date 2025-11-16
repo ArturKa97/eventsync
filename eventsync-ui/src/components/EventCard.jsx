@@ -1,6 +1,3 @@
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
-import CardActionArea from "@mui/material/CardActionArea";
 import {
   StyledCard,
   StyledCardActionArea,
@@ -8,8 +5,9 @@ import {
   StyledDescriptionTypography,
   StyledTitleTypography,
 } from "../styles/StyledComponents";
+import { Button } from "@mui/material";
 
-function EventCard({ title, description, onClick }) {
+function EventCard({ title, description, onClick, onDelete }) {
   return (
     <StyledCard>
       <StyledCardActionArea onClick={onClick}>
@@ -20,6 +18,17 @@ function EventCard({ title, description, onClick }) {
           </StyledDescriptionTypography>
         </StyledCardContent>
       </StyledCardActionArea>
+      <Button
+        variant="contained"
+        color="error"
+        onClick={(e) => {
+          e.stopPropagation();
+          onDelete();
+        }}
+        style={{ width: "100%", borderRadius: 0 }}
+      >
+        Delete
+      </Button>
     </StyledCard>
   );
 }

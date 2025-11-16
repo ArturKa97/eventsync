@@ -19,3 +19,7 @@ export function addEventFeedback(eventId, eventFeedback) {
 export function getEventSummary(eventId) {
   return HTTP.get(`/events/${eventId}/summary`);
 }
+
+export function deleteEventById(eventId) {
+  return HTTP.delete(`/events/${eventId}`);
+}
